@@ -16,13 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const showLoader = () => {
     loader.style.display = 'block';
-    breedSelect.style.display = 'none'; // Ukryj select podczas ładowania
-    catInfoContainer.style.display = 'none'; // Ukryj informacje o kocie podczas ładowania
+    breedSelect.style.display = 'none';
+    catInfoContainer.style.display = 'none';
   };
 
   const hideLoader = () => {
     loader.style.display = 'none';
-    breedSelect.style.display = 'block'; // Pokaż select po zakończeniu ładowania
+    breedSelect.style.display = 'block';
   };
 
   const showError = errorMessage => {
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     error.style.display = 'none';
   };
 
-  showLoader(); // Wyświetl loader na początku
+  showLoader();
 
   fetchBreeds()
     .then(data => {
@@ -45,18 +45,18 @@ document.addEventListener('DOMContentLoaded', () => {
         .join('');
       breedSelect.innerHTML = options;
       new SlimSelect('.breed-select');
-      hideLoader(); // Ukryj loader po pomyślnym pobraniu ras
+      hideLoader();
     })
     .catch(error => {
       showError('Failed to fetch breeds');
-      hideLoader(); // Ukryj loader po nieudanym pobraniu ras
+      hideLoader();
     });
 
   breedSelect.addEventListener('change', () => {
     selectedBreed = breedSelect.value;
-    showLoader(); // Pokaż loader po wyborze rasy
-    catInfoContainer.innerHTML = ''; // Wyczyść poprzednie informacje o kocie
-    catInfoContainer.style.display = 'none'; // Ukryj informacje o kocie podczas ładowania
+    showLoader();
+    catInfoContainer.innerHTML = '';
+    catInfoContainer.style.display = 'none';
 
     fetchCatByBreed(selectedBreed)
       .then(data => {
@@ -70,13 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         `;
         catInfoContainer.innerHTML = catInfoHtml;
-        catInfoContainer.style.display = 'block'; // Pokaż informacje o kocie po pomyślnym pobraniu
-        hideLoader(); // Ukryj loader po pomyślnym pobraniu informacji o kocie
-        hideError(); // Ukryj ewentualny wcześniejszy błąd
+        catInfoContainer.style.display = 'block';
+        hideLoader();
+        hideError();
       })
       .catch(error => {
         showError('Failed to fetch cat information');
-        hideLoader(); // Ukryj loader po nieudanym pobraniu informacji o kocie
+        hideLoader();
       });
   });
 });
